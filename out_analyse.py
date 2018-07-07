@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-f = open("out4.txt",'r')
+f = open("out5.txt",'r')
 freq = np.array([])
 amp = np.array([])
 for line in f:
@@ -11,13 +11,13 @@ for line in f:
     else:
         amp = np.append(amp,float(line[3:]))
 
-plt.plot(freq[0:100],amp[0:100],label="unavg")      
+#plt.plot(freq[0:100],amp[0:100],label="unavg")      
 
 #for i in range(101):
 #    amp[i] = amp[i]+amp[101+i]+amp[202+i]
 #    
 #amp = amp/3.0
 #plt.plot(freq[0:100],amp[0:100],label="avg")
-plt.plot(freq,amp,label="original")
+plt.plot(freq,10*np.log10(amp),label="original")
 plt.legend()
 plt.show()
