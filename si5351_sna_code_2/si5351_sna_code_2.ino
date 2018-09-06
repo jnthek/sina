@@ -24,7 +24,7 @@ void loop()
     }
   byte b1=Serial.read();
   byte b2=Serial.read();
-  freq=(b1*256+b2)*1000ULL;
+  freq=(b1*256+b2)*100ULL*1000ULL;
   si5351.set_freq(freq, SI5351_CLK2);
   delay(100);
   sensorValue = analogRead(analogInPin);

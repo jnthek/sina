@@ -2,6 +2,12 @@ import serial
 import numpy as np
 import matplotlib.pyplot as plt
 
+freq_low = 3000000
+freq_up  = 3500000
+step = 10000
+freq_plot = range(freq_low, freq_up, step)
+freq_plot = np.asanyarray(freq_plot)
+
 ser = serial.Serial('/dev/ttyUSB1',9600,timeout=1)  # open serial port
 if ser.isOpen():
      print(ser.name + ' is open...')
@@ -9,22 +15,19 @@ if ser.isOpen():
 ser.write(chr(50))
 ser.write(chr(50))
 s = ser.readline()
-print s
+ser.write(chr(50))
+ser.write(chr(50))
+s = ser.readline()
 
 ret_loss = np.array([])
-
-freq_low = 3000000
-freq_up  = 4000000
-step = 10000
 for freq in range(freq_low, freq_up, step):
     freq_send = freq/1000
     ser.write(chr(freq_send/256))
     ser.write(chr(freq_send%256))
     line = ser.readline()
-    print line
-    ret_loss = np.append(ret_loss, line)
+    ret_loss = np.append(ret_loss, int(line[0:-2]))
 ser.close() 
 
-plt.plot(ret_loss)
+plt.plot(freq_plot/1e6,ret_loss)
 plt.show()
 
