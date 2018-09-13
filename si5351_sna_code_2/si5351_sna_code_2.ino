@@ -12,7 +12,7 @@ void setup()
 {
   si5351.init(SI5351_CRYSTAL_LOAD_10PF,25000000, calfreq);
   freq = 360000000ULL;
-  Serial.begin(9600);
+  Serial.begin(19200);
 }
 
 void loop()
@@ -26,7 +26,7 @@ void loop()
   byte b2=Serial.read();
   freq=(b1*256+b2)*100ULL*1000ULL;
   si5351.set_freq(freq, SI5351_CLK2);
-  delay(100);
+  delay(10);
   sensorValue = analogRead(analogInPin);
   Serial.println(sensorValue);
   Serial.flush();
